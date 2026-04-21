@@ -28,11 +28,7 @@ public class User {
 
     @JsonIgnore
     @Column(name = "usr_password", nullable = false, length = 150)
-    private String senha;
-
-    @Lob
-    @Column(name = "usr_foto")
-    private byte[] foto;
+    private String password;
 
     @Column(name = "ds_city", length = 100)
     private String city;
