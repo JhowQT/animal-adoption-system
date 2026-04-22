@@ -1,4 +1,4 @@
-package com.cp5.animalservice.config;
+package com.cp5.animalservice.client;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
