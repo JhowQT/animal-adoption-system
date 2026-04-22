@@ -30,11 +30,19 @@ public class AiService {
 
         String response = client.analyze(prompt);
 
-        // 🔥 Simplificação (depois podemos melhorar parsing)
+        double score = Math.random();
+
+        String decision;
+        if (score > 0.5) {
+            decision = "APPROVED";
+        } else {
+            decision = "REJECTED";
+        }
+
         return AdoptionResponse.builder()
                 .adoptionId(request.getAdoptionId())
-                .score(Math.random())
-                .decision(response.contains("APPROVED") ? "APPROVED" : "REJECTED")
+                .score(score)
+                .decision(decision)
                 .reason(response)
                 .build();
     }
