@@ -5,6 +5,7 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/adoption-service" />
+        <option name="gradleHome" value="C:\OpenSource\gradle-8.14.1" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/adoption-service" />
@@ -13,6 +14,7 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/ai-service" />
+        <option name="gradleHome" value="C:\OpenSource\gradle-8.14.1" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/ai-service" />
@@ -21,6 +23,7 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/animal-service" />
+        <option name="gradleHome" value="C:\OpenSource\gradle-8.14.1" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/animal-service" />
@@ -29,6 +32,7 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/eureka-server" />
+        <option name="gradleHome" value="C:\OpenSource\gradle-8.14.1" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/eureka-server" />
@@ -37,6 +41,7 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/user-service" />
+        <option name="gradleHome" value="C:\OpenSource\gradle-8.14.1" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/user-service" />
