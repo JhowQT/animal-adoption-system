@@ -1,5 +1,6 @@
 package com.cp5.animalservice.service;
 
+import com.cp5.animalservice.client.UserClient;
 import com.cp5.animalservice.model.Animal;
 import com.cp5.animalservice.repository.AnimalRepository;
 import org.springframework.stereotype.Service;
@@ -10,9 +11,12 @@ import java.util.List;
 public class AnimalService {
 
     private final AnimalRepository repository;
+    private final UserClient userClient;
 
-    public AnimalService(AnimalRepository repository) {
+    // 🔥 CONSTRUTOR AJUSTADO (injeção do client)
+    public AnimalService(AnimalRepository repository, UserClient userClient) {
         this.repository = repository;
+        this.userClient = userClient;
     }
 
     // Criar animal
@@ -56,5 +60,10 @@ public class AnimalService {
         animal.setAdoptionStatus(status);
 
         return repository.save(animal);
+    }
+
+    // 🔥 NOVO MÉTODO — COMUNICAÇÃO COM USER-SERVICE
+    public Object getUserFromUserService(Long userId) {
+        return userClient.getUserById(userId);
     }
 }
