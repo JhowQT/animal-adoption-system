@@ -12,9 +12,9 @@ public class UserClient {
         this.restTemplate = restTemplate;
     }
 
-    public Object getUser(Long userId) {
+    public Object getUser(Long id) {
         return restTemplate.getForObject(
-                "http://localhost:8081/users/" + userId,
+                "http://USER-SERVICE/users/" + id,
                 Object.class
         );
     }

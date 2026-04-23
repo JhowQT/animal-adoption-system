@@ -12,9 +12,9 @@ public class AnimalClient {
         this.restTemplate = restTemplate;
     }
 
-    public Object getAnimal(Long animalId) {
+    public Object getAnimal(Long id) {
         return restTemplate.getForObject(
-                "http://localhost:8082/animals/" + animalId,
+                "http://ANIMAL-SERVICE/animals/" + id,
                 Object.class
         );
     }

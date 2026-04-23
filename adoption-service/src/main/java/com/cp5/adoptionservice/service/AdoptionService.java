@@ -3,7 +3,8 @@ package com.cp5.adoptionservice.service;
 import com.cp5.adoptionservice.client.AnimalClient;
 import com.cp5.adoptionservice.client.UserClient;
 import com.cp5.adoptionservice.messaging.AdoptionProducer;
-import com.cp5.adoptionservice.model.*;
+import com.cp5.adoptionservice.model.Adoption;
+import com.cp5.adoptionservice.model.AdoptionStatus;
 import com.cp5.adoptionservice.repository.AdoptionRepository;
 import org.springframework.stereotype.Service;
 
@@ -30,25 +31,48 @@ public class AdoptionService {
 
     public Adoption create(Long userId, Long animalId) {
 
-        // 🔗 validar usuário
-        userClient.getUser(userId);
+        try {
+            System.out.println("===== INICIANDO ADOÇÃO =====");
 
-        // 🔗 validar animal
-        animalClient.getAnimal(animalId);
+            // 🔗 validar usuário
+            System.out.println("Chamando USER SERVICE...");
+            Object user = userClient.getUser(userId);
+            System.out.println("Usuário OK: " + user);
 
-        Adoption adoption = Adoption.builder()
-                .userId(userId)
-                .animalId(animalId)
-                .status(AdoptionStatus.REQUESTED)
-                .requestDate(LocalDateTime.now())
-                .build();
+            // 🔗 validar animal
+            System.out.println("Chamando ANIMAL SERVICE...");
+            Object animal = animalClient.getAnimal(animalId);
+            System.out.println("Animal OK: " + animal);
 
-        Adoption saved = repository.save(adoption);
+        } catch (Exception e) {
+            System.out.println("❌ ERRO AO CHAMAR MICROSERVIÇOS");
+            e.printStackTrace(); // 🔥 ESSENCIAL PRA DEBUG
+            throw new RuntimeException("Erro ao validar usuário ou animal");
+        }
 
-        // 🐇 envia para IA
-        producer.sendAdoptionRequest(saved);
+        try {
+            // 🔥 criação da adoção
+            Adoption adoption = new Adoption();
+            adoption.setUserId(userId);
+            adoption.setAnimalId(animalId);
+            adoption.setStatus(AdoptionStatus.REQUESTED);
+            adoption.setRequestDate(LocalDateTime.now());
 
-        return saved;
+            Adoption saved = repository.save(adoption);
+
+            System.out.println("✅ ADOÇÃO SALVA: " + saved.getId());
+
+            // 🐇 envio para IA
+            producer.sendAdoptionRequest(saved);
+            System.out.println("📩 Evento enviado para fila");
+
+            return saved;
+
+        } catch (Exception e) {
+            System.out.println("❌ ERRO AO SALVAR ADOÇÃO");
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao salvar adoção");
+        }
     }
 
     public List<Adoption> findAll() {

@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/adoptions")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AdoptionController {
 
     private final AdoptionService service;
@@ -16,9 +17,11 @@ public class AdoptionController {
         this.service = service;
     }
 
+    // 🔥 CORRETO PARA SEU FRONT
     @PostMapping
     public Adoption create(@RequestParam Long userId,
                            @RequestParam Long animalId) {
+
         return service.create(userId, animalId);
     }
 
