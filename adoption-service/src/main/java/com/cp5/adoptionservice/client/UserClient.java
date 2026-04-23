@@ -14,7 +14,7 @@ public class UserClient {
 
     public Object getUser(Long id) {
         return restTemplate.getForObject(
-                "http://USER-SERVICE/users/" + id,
+                "http://localhost:8081/users/" + id,
                 Object.class
         );
     }

@@ -14,7 +14,7 @@ public class AnimalClient {
 
     public Object getAnimal(Long id) {
         return restTemplate.getForObject(
-                "http://ANIMAL-SERVICE/animals/" + id,
+                "http://localhost:8082/animals/" + id,
                 Object.class
         );
     }

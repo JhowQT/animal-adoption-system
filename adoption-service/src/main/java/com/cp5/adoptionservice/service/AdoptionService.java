@@ -35,23 +35,17 @@ public class AdoptionService {
             System.out.println("===== INICIANDO ADOÇÃO =====");
 
             // 🔗 validar usuário
-            System.out.println("Chamando USER SERVICE...");
-            Object user = userClient.getUser(userId);
-            System.out.println("Usuário OK: " + user);
+            userClient.getUser(userId);
 
             // 🔗 validar animal
-            System.out.println("Chamando ANIMAL SERVICE...");
-            Object animal = animalClient.getAnimal(animalId);
-            System.out.println("Animal OK: " + animal);
+            animalClient.getAnimal(animalId);
 
         } catch (Exception e) {
-            System.out.println("❌ ERRO AO CHAMAR MICROSERVIÇOS");
-            e.printStackTrace(); // 🔥 ESSENCIAL PRA DEBUG
+            e.printStackTrace();
             throw new RuntimeException("Erro ao validar usuário ou animal");
         }
 
         try {
-            // 🔥 criação da adoção
             Adoption adoption = new Adoption();
             adoption.setUserId(userId);
             adoption.setAnimalId(animalId);
@@ -62,14 +56,12 @@ public class AdoptionService {
 
             System.out.println("✅ ADOÇÃO SALVA: " + saved.getId());
 
-            // 🐇 envio para IA
-            producer.sendAdoptionRequest(saved);
-            System.out.println("📩 Evento enviado para fila");
+            // 🚫 DESATIVADO TEMPORARIAMENTE
+            // producer.sendAdoptionRequest(saved);
 
             return saved;
 
         } catch (Exception e) {
-            System.out.println("❌ ERRO AO SALVAR ADOÇÃO");
             e.printStackTrace();
             throw new RuntimeException("Erro ao salvar adoção");
         }
