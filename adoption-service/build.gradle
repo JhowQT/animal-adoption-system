@@ -1,12 +1,11 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '4.0.5'
+    id 'org.springframework.boot' version '3.3.5'
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group = 'com.cp5'
 version = '0.0.1-SNAPSHOT'
-description = 'adoption-service'
 
 java {
     toolchain {
@@ -19,24 +18,34 @@ repositories {
 }
 
 ext {
-    set('springCloudVersion', "2025.1.1")
+    set('springCloudVersion', "2023.0.3")
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-h2console'
-    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+
+    // 🔥 WEB (CORRETO)
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // 🔥 JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
-    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-    compileOnly 'org.projectlombok:lombok'
+
+    // 🔥 H2
     runtimeOnly 'com.h2database:h2'
+
+    // 🔥 EUREKA CLIENT
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+    // 🔥 LOAD BALANCER (OBRIGATÓRIO)
+    implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+
+    // 🔥 RABBITMQ
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+
+    // 🔥 LOMBOK
+    compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-amqp-test'
-    testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa-test'
-    testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
-    testCompileOnly 'org.projectlombok:lombok'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    testAnnotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 dependencyManagement {
